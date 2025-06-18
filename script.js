@@ -1,166 +1,210 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // --- Definição do Questionário (Simulando o Banco de Dados) ---
+    // --- QUESTIONÁRIO ESTRATÉGICO APROFUNDADO ---
     const questionnaire = [
         {
-            module: "Estratégia e Gestão",
-            question: "Os objetivos estratégicos da sua empresa são claros e mensuráveis?",
+            module: "Fundamentos & Estratégia",
+            icon: "fa-solid fa-flag-checkered",
+            question: "Qual frase melhor descreve o estágio atual do seu negócio?",
             options: [
-                { text: "Sim, e são revisados periodicamente.", score: 3 },
-                { text: "Temos objetivos, mas não são claros para todos.", score: 2 },
-                { text: "Não temos objetivos formais definidos.", score: 1 }
+                { text: "Estamos no início, validando o modelo de negócio.", score: 1 },
+                { text: "Temos uma base de clientes, mas buscamos estabilidade.", score: 2 },
+                { text: "Estamos estáveis e prontos para escalar.", score: 3 }
             ]
         },
         {
-            module: "Eficiência Operacional",
-            question: "Os processos internos da sua empresa são bem definidos e otimizados?",
+            module: "Fundamentos & Estratégia",
+            icon: "fa-solid fa-flag-checkered",
+            question: "A sua visão de futuro para a empresa é clara e compartilhada com a equipe?",
             options: [
-                { text: "Sim, são padronizados e buscamos melhoria contínua.", score: 3 },
-                { text: "Alguns são, mas muitos dependem de pessoas específicas.", score: 2 },
-                { text: "Não, operamos de forma reativa e apagando incêndios.", score: 1 }
+                { text: "Sim, é a nossa principal diretriz.", score: 3 },
+                { text: "Existe, mas poderia ser melhor comunicada.", score: 2 }
             ]
         },
         {
-            module: "Saúde Jurídica e Compliance",
-            question: "Como você descreveria a gestão de contratos na sua empresa?",
+            module: "Operações & Eficiência",
+            icon: "fa-solid fa-gears",
+            question: "Seus processos-chave dependem mais de pessoas específicas ou de sistemas bem definidos?",
             options: [
-                { text: "Temos um processo robusto de criação, revisão e armazenamento.", score: 3 },
-                { text: "Gerenciamos, mas de forma descentralizada e sem padrão.", score: 2 },
-                { text: "Não há um processo formal, os contratos são tratados caso a caso.", score: 1 }
+                { text: "Dependemos muito de pessoas-chave.", score: 1 },
+                { text: "Temos um balanço, mas buscamos mais sistemas.", score: 2 },
+                { text: "Nossos sistemas garantem a continuidade.", score: 3 }
             ]
         },
         {
-            module: "Gestão de Riscos",
-            question: "Sua empresa identifica e planeja proativamente como mitigar riscos (operacionais, financeiros, legais)?",
+            module: "Operações & Eficiência",
+            icon: "fa-solid fa-gears",
+            question: "Você utiliza tecnologia para automatizar tarefas e obter dados para decisão?",
             options: [
-                { text: "Sim, temos um processo formal de gestão de riscos.", score: 3 },
-                { text: "Identificamos riscos, mas de forma informal e reativa.", score: 2 },
-                { text: "Não temos nenhuma prática de gestão de riscos.", score: 1 }
+                { text: "Sim, é uma parte central da nossa operação.", score: 3 },
+                { text: "Pouco ou nada, ainda somos muito manuais.", score: 1 }
+            ]
+        },
+        {
+            module: "Saúde Financeira",
+            icon: "fa-solid fa-chart-pie",
+            question: "Você tem clareza sobre qual parte da sua operação gera mais lucro?",
+            options: [
+                { text: "Sim, monitoro a rentabilidade por produto/serviço.", score: 3 },
+                { text: "Tenho uma ideia geral, mas não dados precisos.", score: 2 },
+                { text: "Não, foco apenas no faturamento total.", score: 1 }
+            ]
+        },
+        {
+            module: "Saúde Financeira",
+            icon: "fa-solid fa-chart-pie",
+            question: "Como você descreveria o controle do seu fluxo de caixa?",
+            options: [
+                { text: "Rigoroso, com projeções futuras.", score: 3 },
+                { text: "Básico, apenas controlando entradas e saídas.", score: 2 }
+            ]
+        },
+        {
+            module: "Jurídico & Riscos",
+            icon: "fa-solid fa-gavel",
+            question: "Seus contratos (com clientes, fornecedores, sócios) foram elaborados ou revisados por um especialista?",
+            options: [
+                { text: "Sim, todos são customizados para nossa proteção.", score: 3 },
+                { text: "Não, utilizamos modelos padrão da internet.", score: 1 }
+            ]
+        },
+        {
+            module: "Jurídico & Riscos",
+            icon: "fa-solid fa-gavel",
+            question: "Sua empresa possui um plano para lidar com possíveis disputas ou conflitos?",
+            options: [
+                { text: "Sim, temos cláusulas de mediação e um plano de ação.", score: 3 },
+                { text: "Não, resolvemos os problemas conforme aparecem.", score: 1 }
+            ]
+        },
+        {
+            module: "Crescimento & Futuro",
+            icon: "fa-solid fa-rocket",
+            question: "Qual o principal obstáculo que impede sua empresa de crescer mais rápido hoje?",
+            options: [
+                { text: "Falta de processos escaláveis.", score: 1 },
+                { text: "Insegurança jurídica ou riscos não gerenciados.", score: 2 },
+                { text: "Dificuldade em planejar os próximos passos.", score: 3 }
             ]
         }
     ];
 
-    // --- Variáveis de Estado do Aplicativo ---
+    // --- O RESTANTE DO CÓDIGO JAVASCRIPT PERMANECE O MESMO ---
+
     let currentQuestionIndex = 0;
     const userAnswers = {};
 
-    // --- Referências aos Elementos do DOM ---
-    const screens = document.querySelectorAll('.app-screen');
+    const screens = {
+        welcome: document.getElementById('welcome-screen'),
+        questionnaire: document.getElementById('questionnaire-screen'),
+        report: document.getElementById('report-screen')
+    };
+    
     const startBtn = document.getElementById('start-btn');
-    const nextBtn = document.getElementById('next-btn');
-    const submitLeadBtn = document.getElementById('submit-lead-btn');
-
     const progressBar = document.getElementById('progress-bar');
-    const moduleTitle = document.getElementById('module-title');
-    const questionText = document.getElementById('question-text');
-    const answerOptionsContainer = document.getElementById('answer-options');
+    const questionContainer = document.getElementById('question-slide-container');
     const reportResultsContainer = document.getElementById('report-results');
-
-    // --- Funções do Aplicativo ---
-    function showScreen(screenId) {
-        screens.forEach(screen => {
-            screen.classList.remove('active');
-        });
-        document.getElementById(screenId).classList.add('active');
+    
+    function switchScreen(hideScreen, showScreen) {
+        hideScreen.classList.add('exiting');
+        setTimeout(() => {
+            hideScreen.classList.remove('active');
+            hideScreen.classList.remove('exiting');
+            showScreen.classList.add('active');
+        }, 500);
     }
 
     function renderQuestion() {
-        const currentQuestion = questionnaire[currentQuestionIndex];
-        moduleTitle.textContent = currentQuestion.module;
-        questionText.textContent = currentQuestion.question;
+        if (currentQuestionIndex >= questionnaire.length) {
+            generateReport();
+            return;
+        }
 
-        answerOptionsContainer.innerHTML = '';
-        currentQuestion.options.forEach((option, index) => {
-            answerOptionsContainer.innerHTML += `
-                <div>
-                    <input type="radio" id="option${index}" name="answer" value="${option.score}">
-                    <label for="option${index}">${option.text}</label>
-                </div>
-            `;
+        const questionData = questionnaire[currentQuestionIndex];
+        const slide = document.createElement('div');
+        slide.className = 'question-slide';
+        
+        let optionsHTML = '';
+        questionData.options.forEach((option, index) => {
+            optionsHTML += `<div class="answer-option" data-score="${option.score}">${option.text}</div>`;
         });
 
-        const progress = ((currentQuestionIndex + 1) / questionnaire.length) * 100;
+        slide.innerHTML = `
+            <i class="module-icon ${questionData.icon}"></i>
+            <h2 class="question-text">${questionData.question}</h2>
+            <div class="answer-options">${optionsHTML}</div>
+        `;
+
+        questionContainer.innerHTML = '';
+        questionContainer.appendChild(slide);
+
+        document.querySelectorAll('.answer-option').forEach(option => {
+            option.addEventListener('click', handleAnswerClick);
+        });
+        
+        const progress = ((currentQuestionIndex) / questionnaire.length) * 100;
         progressBar.style.width = `${progress}%`;
     }
 
-    function generateReport() {
-        reportResultsContainer.innerHTML = '';
-        const modules = {};
+    function handleAnswerClick(event) {
+        const selectedOption = event.currentTarget;
+        const score = parseInt(selectedOption.dataset.score, 10);
+        userAnswers[currentQuestionIndex] = score;
 
-        for (const key in userAnswers) {
-            const question = questionnaire[key];
-            if (!modules[question.module]) {
-                modules[question.module] = { totalScore: 0, count: 0 };
-            }
-            modules[question.module].totalScore += userAnswers[key];
-            modules[question.module].count++;
+        selectedOption.classList.add('selected');
+
+        const oldSlide = document.querySelector('.question-slide');
+        if (oldSlide) {
+            oldSlide.classList.add('slide-out');
         }
 
+        setTimeout(() => {
+            currentQuestionIndex++;
+            renderQuestion();
+        }, 500);
+    }
+
+    function generateReport() {
+        progressBar.style.width = `100%`;
+        switchScreen(screens.questionnaire, screens.report);
+
+        const modules = {};
+        questionnaire.forEach((q, index) => {
+            if (!modules[q.module]) {
+                modules[q.module] = { scores: [], icon: q.icon };
+            }
+            if (userAnswers[index] !== undefined) {
+                modules[q.module].scores.push(userAnswers[index]);
+            }
+        });
+        
+        reportResultsContainer.innerHTML = '';
         for (const moduleName in modules) {
-            const avgScore = modules[moduleName].totalScore / modules[moduleName].count;
-            let feedback = '';
-            let level = '';
+            const moduleData = modules[moduleName];
+            const avgScore = moduleData.scores.reduce((a, b) => a + b, 0) / moduleData.scores.length;
+            let feedback = '', level = '', levelClass = '';
 
             if (avgScore >= 2.7) {
-                feedback = "Excelente maturidade nesta área. Continue com as boas práticas e busque a inovação contínua.";
-                level = "Nível de Maturidade: ALTO";
-            } else if (avgScore >= 1.7) {
-                feedback = "Área com bom potencial, mas existem oportunidades claras de melhoria para otimizar processos e reduzir riscos.";
-                level = "Nível de Maturidade: MÉDIO (Ponto de Atenção)";
+                level = "ALTO"; levelClass = "high";
+                feedback = "Esta é uma área de força. Seu foco em excelência aqui é um diferencial competitivo.";
+            } else if (avgScore >= 1.8) {
+                level = "MÉDIO"; levelClass = "medium";
+                feedback = "Há uma base sólida, mas otimizações estratégicas podem destravar um novo potencial de crescimento.";
             } else {
-                feedback = "Esta área representa um risco significativo e requer atenção estratégica urgente para garantir a segurança e o crescimento do negócio.";
-                level = "Nível de Maturidade: BAIXO (Requer Análise Urgente)";
+                level = "BAIXO"; levelClass = "low";
+                feedback = "Esta área merece atenção prioritária. Fortalecê-la pode mitigar riscos e impulsionar seus resultados.";
             }
-
+            
             reportResultsContainer.innerHTML += `
                 <div class="report-section">
-                    <h3>${moduleName}</h3>
-                    <p><strong>${level}</strong></p>
+                    <h3><i class="${moduleData.icon}"></i> ${moduleName}</h3>
+                    <p class="level ${levelClass}">Nível de Maturidade: ${level}</p>
                     <p>${feedback}</p>
-                </div>
-            `;
+                </div>`;
         }
-        showScreen('report-screen');
     }
 
-    // --- Event Listeners ---
-    if(startBtn) {
-        startBtn.addEventListener('click', () => {
-            renderQuestion();
-            showScreen('questionnaire-screen');
-        });
-    }
-
-    if(nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            const selectedOption = document.querySelector('input[name="answer"]:checked');
-            if (!selectedOption) {
-                alert("Por favor, selecione uma opção.");
-                return;
-            }
-
-            userAnswers[currentQuestionIndex] = parseInt(selectedOption.value, 10);
-
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questionnaire.length) {
-                renderQuestion();
-            } else {
-                showScreen('lead-capture-screen');
-            }
-        });
-    }
-    
-    if(submitLeadBtn) {
-        submitLeadBtn.addEventListener('click', () => {
-             const userName = document.getElementById('user-name').value;
-             const userEmail = document.getElementById('user-email').value;
-
-             if (userName.trim() === '' || userEmail.trim() === '') {
-                 alert('Por favor, preencha seu nome e e-mail.');
-                 return;
-             }
-             console.log('Lead Capturado:', { name: userName, email: userEmail, answers: userAnswers });
-
-             generateReport();
-        });
-    }
+    startBtn.addEventListener('click', () => {
+        switchScreen(screens.welcome, screens.questionnaire);
+        setTimeout(renderQuestion, 200);
+    });
 });
