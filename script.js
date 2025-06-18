@@ -102,11 +102,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const reportResultsContainer = document.getElementById('report-results');
     
     function switchScreen(hideScreen, showScreen) {
-        hideScreen.classList.add('exiting');
+        if (hideScreen) hideScreen.classList.add('exiting');
+        
         setTimeout(() => {
-            hideScreen.classList.remove('active');
-            hideScreen.classList.remove('exiting');
-            showScreen.classList.add('active');
+            if (hideScreen) {
+                hideScreen.classList.remove('active');
+                hideScreen.classList.remove('exiting');
+            }
+            if (showScreen) showScreen.classList.add('active');
         }, 500);
     }
 
