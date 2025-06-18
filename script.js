@@ -1,213 +1,249 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // --- QUESTIONÁRIO ESTRATÉGICO APROFUNDADO ---
-    const questionnaire = [
-        {
-            module: "Fundamentos & Estratégia",
-            icon: "fa-solid fa-flag-checkered",
-            question: "Qual frase melhor descreve o estágio atual do seu negócio?",
-            options: [
-                { text: "Estamos no início, validando o modelo de negócio.", score: 1 },
-                { text: "Temos uma base de clientes, mas buscamos estabilidade.", score: 2 },
-                { text: "Estamos estáveis e prontos para escalar.", score: 3 }
-            ]
-        },
-        {
-            module: "Fundamentos & Estratégia",
-            icon: "fa-solid fa-flag-checkered",
-            question: "A sua visão de futuro para a empresa é clara e compartilhada com a equipe?",
-            options: [
-                { text: "Sim, é a nossa principal diretriz.", score: 3 },
-                { text: "Existe, mas poderia ser melhor comunicada.", score: 2 }
-            ]
-        },
-        {
-            module: "Operações & Eficiência",
-            icon: "fa-solid fa-gears",
-            question: "Seus processos-chave dependem mais de pessoas específicas ou de sistemas bem definidos?",
-            options: [
-                { text: "Dependemos muito de pessoas-chave.", score: 1 },
-                { text: "Temos um balanço, mas buscamos mais sistemas.", score: 2 },
-                { text: "Nossos sistemas garantem a continuidade.", score: 3 }
-            ]
-        },
-        {
-            module: "Operações & Eficiência",
-            icon: "fa-solid fa-gears",
-            question: "Você utiliza tecnologia para automatizar tarefas e obter dados para decisão?",
-            options: [
-                { text: "Sim, é uma parte central da nossa operação.", score: 3 },
-                { text: "Pouco ou nada, ainda somos muito manuais.", score: 1 }
-            ]
-        },
-        {
-            module: "Saúde Financeira",
-            icon: "fa-solid fa-chart-pie",
-            question: "Você tem clareza sobre qual parte da sua operação gera mais lucro?",
-            options: [
-                { text: "Sim, monitoro a rentabilidade por produto/serviço.", score: 3 },
-                { text: "Tenho uma ideia geral, mas não dados precisos.", score: 2 },
-                { text: "Não, foco apenas no faturamento total.", score: 1 }
-            ]
-        },
-        {
-            module: "Saúde Financeira",
-            icon: "fa-solid fa-chart-pie",
-            question: "Como você descreveria o controle do seu fluxo de caixa?",
-            options: [
-                { text: "Rigoroso, com projeções futuras.", score: 3 },
-                { text: "Básico, apenas controlando entradas e saídas.", score: 2 }
-            ]
-        },
-        {
-            module: "Jurídico & Riscos",
-            icon: "fa-solid fa-gavel",
-            question: "Seus contratos (com clientes, fornecedores, sócios) foram elaborados ou revisados por um especialista?",
-            options: [
-                { text: "Sim, todos são customizados para nossa proteção.", score: 3 },
-                { text: "Não, utilizamos modelos padrão da internet.", score: 1 }
-            ]
-        },
-        {
-            module: "Jurídico & Riscos",
-            icon: "fa-solid fa-gavel",
-            question: "Sua empresa possui um plano para lidar com possíveis disputas ou conflitos?",
-            options: [
-                { text: "Sim, temos cláusulas de mediação e um plano de ação.", score: 3 },
-                { text: "Não, resolvemos os problemas conforme aparecem.", score: 1 }
-            ]
-        },
-        {
-            module: "Crescimento & Futuro",
-            icon: "fa-solid fa-rocket",
-            question: "Qual o principal obstáculo que impede sua empresa de crescer mais rápido hoje?",
-            options: [
-                { text: "Falta de processos escaláveis.", score: 1 },
-                { text: "Insegurança jurídica ou riscos não gerenciados.", score: 2 },
-                { text: "Dificuldade em planejar os próximos passos.", score: 3 }
-            ]
-        }
-    ];
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Playfair+Display:wght@700&display=swap');
 
-    let currentQuestionIndex = 0;
-    const userAnswers = {};
+:root {
+    /* NOVA PALETA DE CORES DARK MODE */
+    --color-black: #050505;
+    --color-gold: #DABA5F;
+    --color-card-bg: #1C1C1C;
+    --color-secondary-bg: #0C1628;
+    --color-text-primary: #EAEAEA;
+    --color-text-secondary: #a0a0a0;
 
-    const screens = {
-        welcome: document.getElementById('welcome-screen'),
-        questionnaire: document.getElementById('questionnaire-screen'),
-        report: document.getElementById('report-screen')
-    };
-    
-    const startBtn = document.getElementById('start-btn');
-    const progressBar = document.getElementById('progress-bar');
-    const questionContainer = document.getElementById('question-slide-container');
-    const reportResultsContainer = document.getElementById('report-results');
-    
-    function switchScreen(hideScreen, showScreen) {
-        hideScreen.classList.add('exiting');
-        setTimeout(() => {
-            hideScreen.classList.remove('active');
-            hideScreen.classList.remove('exiting');
-            showScreen.classList.add('active');
-        }, 500);
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'Montserrat', sans-serif;
+    --transition-speed: 0.5s;
+}
+
+/* --- ESTILOS GLOBAIS --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+    overflow: hidden;
+    height: 100%;
+}
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-black);
+    color: var(--color-text-primary);
+    overflow-y: hidden;
+}
+
+#realconsultoria-app-container {
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- TELAS E TRANSIÇÕES --- */
+.app-screen {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    transition: opacity var(--transition-speed) ease, transform var(--transition-speed) ease;
+    transform: scale(1);
+    opacity: 0;
+    pointer-events: none;
+}
+.app-screen.active {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: all;
+    z-index: 2;
+}
+.app-screen.exiting {
+    opacity: 0;
+    transform: scale(0.95);
+    z-index: 1;
+}
+
+/* --- TELA DE BOAS-VINDAS E LOGO --- */
+.logo-container {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem auto;
+    background-image: url('logo.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.main-title { font-size: 3rem; color: var(--color-gold); }
+.main-subtitle { font-size: 1.1rem; line-height: 1.6; max-width: 600px; margin: 1.5rem auto 2.5rem auto; color: var(--color-text-secondary); }
+
+/* --- BOTÕES --- */
+.btn {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 1rem 3rem;
+    border: 2px solid var(--color-gold);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+}
+.btn-primary { background-color: var(--color-gold); color: var(--color-black); }
+.btn-primary:hover { background-color: #fff; border-color: #fff; transform: translateY(-3px); box-shadow: 0 4px 15px rgba(218, 186, 95, 0.2); }
+.btn-whatsapp i { margin-right: 0.75rem; }
+
+/* --- QUESTIONÁRIO --- */
+#progress-bar-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255,255,255,0.1);
+    height: 8px;
+}
+#progress-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #b8860b, var(--color-gold));
+    transition: width 0.5s ease-out;
+}
+
+#question-slide-container {
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+}
+.question-slide {
+    animation: slideIn var(--transition-speed) forwards ease-out;
+}
+.question-slide.slide-out {
+    animation: slideOut var(--transition-speed) forwards ease-in;
+}
+
+.module-icon {
+    font-size: 3rem;
+    color: var(--color-gold);
+    margin-bottom: 1.5rem;
+}
+.question-text {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    line-height: 1.3;
+    margin-bottom: 3rem;
+}
+.answer-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+.answer-option {
+    background-color: var(--color-card-bg);
+    padding: 1.5rem;
+    border: 1px solid #444;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.answer-option:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-gold);
+}
+.answer-option.selected {
+    background-color: var(--color-gold);
+    color: var(--color-black);
+    font-weight: 700;
+    border-color: #b8860b;
+}
+
+/* --- TELA DE RELATÓRIO (TOTALMENTE REFEITA) --- */
+#report-content {
+    background-color: transparent;
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+}
+.report-title { color: var(--color-text-primary); font-size: 2.5rem; }
+.report-subtitle { max-width: 600px; margin: 1rem auto 2.5rem auto; color: var(--color-text-secondary); }
+
+#report-results {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Duas colunas */
+    gap: 1.5rem;
+    width: 100%;
+}
+.report-section {
+    background: var(--color-card-bg);
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: left;
+    border: 1px solid #333;
+    transition: all 0.3s ease;
+}
+.report-section:hover{
+    transform: translateY(-5px);
+    border-color: var(--color-gold);
+}
+
+.report-section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.report-section-header i { /* Ícone do módulo */
+    font-size: 1.5rem;
+    color: var(--color-gold);
+}
+.report-section-header h3 { 
+    font-family: var(--font-display); 
+    color: var(--color-text-primary); 
+    font-size: 1.4rem;
+    margin: 0;
+}
+
+.level { 
+    font-weight: 700; 
+    margin-bottom: 0.5rem; 
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.level i { /* Ícone de status (acessibilidade) */
+    font-size: 1.2rem;
+}
+.level.high { color: #2E8B57; } /* Verde para Alto */
+.level.medium { color: #DAA520; } /* Amarelo/Dourado para Médio */
+.level.low { color: #CD5C5C; } /* Vermelho para Baixo */
+.report-section p { margin-bottom: 0; color: var(--color-text-secondary);}
+
+.final-cta { 
+    grid-column: 1 / -1; /* Ocupa as duas colunas */
+    margin-top: 2.5rem; 
+}
+.final-cta h3 { color: var(--color-text-primary); font-family: var(--font-display); font-size: 1.8rem; }
+.final-cta p { max-width: 500px; margin: 1rem auto 2rem auto; color: var(--color-text-secondary);}
+
+/* --- ANIMAÇÕES --- */
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideOut {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(-50px); }
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 768px) {
+    #report-results {
+        grid-template-columns: 1fr; /* Uma coluna em telas menores */
     }
-
-    function renderQuestion() {
-        if (currentQuestionIndex >= questionnaire.length) {
-            generateReport();
-            return;
-        }
-
-        const questionData = questionnaire[currentQuestionIndex];
-        const slide = document.createElement('div');
-        slide.className = 'question-slide';
-        
-        let optionsHTML = '';
-        questionData.options.forEach((option, index) => {
-            optionsHTML += `<div class="answer-option" data-score="${option.score}">${option.text}</div>`;
-        });
-
-        slide.innerHTML = `
-            <i class="module-icon ${questionData.icon}"></i>
-            <h2 class="question-text">${questionData.question}</h2>
-            <div class="answer-options">${optionsHTML}</div>
-        `;
-
-        questionContainer.innerHTML = '';
-        questionContainer.appendChild(slide);
-
-        document.querySelectorAll('.answer-option').forEach(option => {
-            option.addEventListener('click', handleAnswerClick);
-        });
-        
-        const progress = ((currentQuestionIndex) / questionnaire.length) * 100;
-        progressBar.style.width = `${progress}%`;
-    }
-
-    function handleAnswerClick(event) {
-        const selectedOption = event.currentTarget;
-        const score = parseInt(selectedOption.dataset.score, 10);
-        userAnswers[currentQuestionIndex] = score;
-
-        selectedOption.classList.add('selected');
-
-        const oldSlide = document.querySelector('.question-slide');
-        if (oldSlide) {
-            oldSlide.classList.add('slide-out');
-        }
-
-        setTimeout(() => {
-            currentQuestionIndex++;
-            renderQuestion();
-        }, 500);
-    }
-
-    function generateReport() {
-        progressBar.style.width = `100%`;
-        switchScreen(screens.questionnaire, screens.report);
-
-        const modules = {};
-        questionnaire.forEach((q, index) => {
-            if (!modules[q.module]) {
-                modules[q.module] = { scores: [], icon: q.icon };
-            }
-            if (userAnswers[index] !== undefined) {
-                modules[q.module].scores.push(userAnswers[index]);
-            }
-        });
-        
-        reportResultsContainer.innerHTML = '';
-        for (const moduleName in modules) {
-            const moduleData = modules[moduleName];
-            const avgScore = moduleData.scores.reduce((a, b) => a + b, 0) / moduleData.scores.length;
-            let feedback = '', level = '', levelClass = '';
-
-            if (avgScore >= 2.7) {
-                level = "ALTO"; levelClass = "high";
-                feedback = "Esta é uma área de força. Seu foco em excelência aqui é um diferencial competitivo.";
-            } else if (avgScore >= 1.8) {
-                level = "MÉDIO"; levelClass = "medium";
-                feedback = "Há uma base sólida, mas otimizações estratégicas podem destravar um novo potencial de crescimento.";
-            } else {
-                level = "BAIXO"; levelClass = "low";
-                feedback = "Esta área merece atenção prioritária. Fortalecê-la pode mitigar riscos e impulsionar seus resultados.";
-            }
-            
-            reportResultsContainer.innerHTML += `
-                <div class="report-section">
-                    <h3><i class="${moduleData.icon}"></i> ${moduleName}</h3>
-                    <p class="level ${levelClass}">Nível de Maturidade: ${level}</p>
-                    <p>${feedback}</p>
-                </div>`;
-        }
-    }
-
-    // --- PONTO CRÍTICO: ADICIONANDO O EVENT LISTENER CORRETAMENTE ---
-    if (startBtn) {
-        startBtn.addEventListener('click', () => {
-            switchScreen(screens.welcome, screens.questionnaire);
-            // Um pequeno delay para a transição da tela começar antes de renderizar a primeira questão
-            setTimeout(renderQuestion, 200);
-        });
-    }
-
-});
+    .main-title { font-size: 2.2rem; }
+    .question-text { font-size: 1.8rem; }
+    .answer-options { grid-template-columns: 1fr; }
+    .report-title { font-size: 2rem; }
+}
