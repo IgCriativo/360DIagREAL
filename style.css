@@ -21,6 +21,7 @@
 
 html, body {
     height: 100vh;
+    overflow: hidden;
     /* A propriedade overflow foi removida daqui para permitir a rolagem na tela de relatório */
 }
 
