@@ -20,7 +20,7 @@
 }
 
 html, body {
-    height: 100%;
+    height: 100vh;
     /* A propriedade overflow foi removida daqui para permitir a rolagem na tela de relatório */
 }
 
