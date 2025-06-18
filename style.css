@@ -14,6 +14,7 @@
 
 /* --- Estilos Globais e Reset --- */
 body {
+    overflow-y: hidden; /* Esconde a barra de rolagem vertical */
     font-family: var(--font-body);
     background-color: var(--color-black);
     color: var(--color-white);
