@@ -88,8 +88,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     ];
 
-    // --- O RESTANTE DO CÓDIGO JAVASCRIPT PERMANECE O MESMO ---
-
     let currentQuestionIndex = 0;
     const userAnswers = {};
 
@@ -203,8 +201,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    startBtn.addEventListener('click', () => {
-        switchScreen(screens.welcome, screens.questionnaire);
-        setTimeout(renderQuestion, 200);
-    });
+    // --- PONTO CRÍTICO: ADICIONANDO O EVENT LISTENER CORRETAMENTE ---
+    if (startBtn) {
+        startBtn.addEventListener('click', () => {
+            switchScreen(screens.welcome, screens.questionnaire);
+            // Um pequeno delay para a transição da tela começar antes de renderizar a primeira questão
+            setTimeout(renderQuestion, 200);
+        });
+    }
+
 });
