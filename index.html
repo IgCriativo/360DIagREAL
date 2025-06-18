@@ -4,52 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diagnóstico 360° - Real Consultoria</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div id="realconsultoria-app-container">
+        
         <div id="welcome-screen" class="app-screen active">
             <div class="content">
-                <img src="https://i.ibb.co/L8y8jS4/logo-real-r.png" alt="Logo Real Consultoria" style="width: 80px; margin-bottom: 1rem;">
-                <h1>Diagnóstico 360° de Maturidade</h1>
-                <p>Descubra os pontos fortes e as áreas de oportunidade da sua empresa em menos de 5 minutos. Uma análise estratégica para decisões mais seguras.</p>
+                <div class="logo-container"></div>
+                
+                <h1 class="main-title">Diagnóstico 360° de Maturidade</h1>
+                <p class="main-subtitle">Descubra os pontos fortes e as áreas de oportunidade da sua empresa em menos de 5 minutos. Uma análise estratégica para decisões mais seguras.</p>
                 <button id="start-btn" class="btn btn-primary">Iniciar Diagnóstico</button>
             </div>
         </div>
+
         <div id="questionnaire-screen" class="app-screen">
             <div id="progress-bar-container">
                 <div id="progress-bar"></div>
             </div>
-            <div id="question-card">
-                <h2 id="module-title"></h2>
-                <p id="question-text"></p>
-                <div id="answer-options" class="answer-options"></div>
-            </div>
-            <div id="navigation-btns">
-                <button id="next-btn" class="btn btn-primary">Próximo</button>
-            </div>
+            <div id="question-slide-container">
+                </div>
         </div>
-        <div id="lead-capture-screen" class="app-screen">
-            <h2>Relatório Quase Pronto!</h2>
-            <p>Insira seus dados para receber o seu relatório detalhado de maturidade empresarial e jurídica.</p>
-            <div class="form-group">
-                <input type="text" id="user-name" placeholder="Seu nome">
-            </div>
-            <div class="form-group">
-                <input type="email" id="user-email" placeholder="Seu melhor e-mail">
-            </div>
-            <button id="submit-lead-btn" class="btn btn-primary">Gerar meu Relatório</button>
-        </div>
+
         <div id="report-screen" class="app-screen">
              <div id="report-content">
-                <h2>Seu Diagnóstico 360°</h2>
-                <p>Abaixo estão os resultados preliminares baseados em suas respostas. Lembre-se, esta é uma análise simplificada.</p>
-                <div id="report-results"></div>
+                <h2 class="report-title">Seu Diagnóstico 360°</h2>
+                <p class="report-subtitle">Com base em suas respostas, identificamos os seguintes níveis de maturidade para sua empresa. Lembre-se, esta é uma análise preliminar para iniciar uma conversa estratégica.</p>
+                <div id="report-results">
+                    </div>
                  <div class="final-cta">
-                    <h3>Transforme Insights em Resultados</h3>
-                    <p>Nosso compromisso é com o seu sucesso: você só investe se alcançarmos os resultados que sua empresa precisa. Vamos aprofundar esta análise?</p>
-                    <a href="https://realconsultoria.crd.co/#contato" target="_blank" class="btn btn-primary" style="text-decoration: none;">Agende sua Consulta</a>
+                    <h3>Pronto para Transformar Insights em Ação?</h3>
+                    <p>Nosso compromisso é com o seu resultado. Vamos aprofundar esta análise e construir uma estratégia de sucesso para sua empresa. Fale diretamente com um de nossos consultores.</p>
+                    <a id="whatsapp-btn" href="https://wa.me/5511974517180?text=Ol%C3%A1!%20Fiz%20o%20Diagn%C3%B3stico%20360%C2%B0%20no%20site%20e%20gostaria%20de%20conversar." target="_blank" class="btn btn-primary btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> Iniciar Conversa
+                    </a>
                 </div>
             </div>
         </div>
