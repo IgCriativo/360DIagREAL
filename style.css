@@ -16,7 +16,7 @@
 html, body {
     height: 100%;
     margin: 0;
-    padding: 20px;
+    padding: 10px;
 }
 
 body {
@@ -26,7 +26,7 @@ body {
 }
 
 #realconsultoria-app-container {
-    height: 100vh;
+    height: 100%;
     overflow: hidden; /* Mantém o container principal sem barra de rolagem */
     position: relative;
     display: flex;
@@ -37,8 +37,8 @@ body {
 
 /* --- TELAS E TRANSIÇÕES --- */
 .app-screen {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
@@ -68,8 +68,8 @@ body {
 
 /* --- TELA DE BOAS-VINDAS E LOGO --- */
 .logo-container {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 200px;
     margin: 0 auto 1.5rem auto;
     background-image: url('logo.png');
     background-size: contain;
