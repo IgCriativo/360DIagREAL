@@ -70,8 +70,8 @@ body {
 
 /* --- TELA DE BOAS-VINDAS E LOGO --- */
 .logo-container {
-    width: 80px;
-    height: 80px;
+    width: 400px;
+    height: 100px;
     margin: 0 auto 1.5rem auto;
     background-image: url('logo.png'); /* Lembre-se de usar a URL correta do seu logo */
     background-size: contain;
