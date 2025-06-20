@@ -16,7 +16,7 @@
 html, body {
     height: 100%;
     margin: 0;
-    padding: 0;
+    padding: 20px;
 }
 
 body {
@@ -37,8 +37,8 @@ body {
 
 /* --- TELAS E TRANSIÇÕES --- */
 .app-screen {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     position: absolute;
     top: 0;
     left: 0;
