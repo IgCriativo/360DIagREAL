@@ -29,22 +29,21 @@ body {
 
 /* --- CONTAINER PRINCIPAL DA APLICAÇÃO (READEQUADO) --- */
 #realconsultoria-app-container {
-    min-height: 100vh; /* Garante que ocupe no mínimo a altura da tela */
+    min-height: 100vh;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 3rem 1rem; /* Adiciona um respiro vertical e horizontal */
+    padding: 3rem 1rem;
     box-sizing: border-box;
     overflow-x: hidden;
-    overflow-y: hidden;/* Evita rolagem vertical */
 }
 
 /* --- TELAS E TRANSIÇÕES (READEQUADO) --- */
 .app-screen {
     width: 100%;
-    display: none; /* Começa invisível */
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -56,7 +55,7 @@ body {
 }
 
 .app-screen.active {
-    display: flex; /* Torna a tela ativa visível */
+    display: flex;
     opacity: 1;
     transform: scale(1);
     z-index: 2;
@@ -194,7 +193,7 @@ body {
 #report-content {
     background-color: transparent;
     width: 100%;
-    max-width: 1100px; /* Largura máxima para o conteúdo dos resultados */
+    max-width: 1100px;
 }
 
 .report-title {
@@ -211,8 +210,7 @@ body {
 
 #report-results {
     display: grid;
-    /* Inicia com 3 colunas em telas grandes */
-    grid-template-columns: repeat(3, 1fr); 
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
     width: 100%;
 }
@@ -275,8 +273,10 @@ body {
 }
 
 .final-cta {
-    grid-column: 1 / -1; /* Garante que o CTA ocupe toda a largura no grid */
+    grid-column: 1 / -1;
     margin-top: 2.5rem;
+    position: relative;
+    z-index: 5;
 }
 
 .final-cta h3 {
@@ -317,14 +317,14 @@ body {
 /* Para Tablets (telas menores que 1024px) */
 @media (max-width: 1024px) {
     #report-results {
-        grid-template-columns: repeat(2, 1fr); /* Muda para 2 colunas */
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 /* Para Celulares (telas menores que 768px) */
 @media (max-width: 768px) {
     #report-results {
-        grid-template-columns: 1fr; /* Muda para 1 coluna */
+        grid-template-columns: 1fr;
     }
     
     .main-title {
@@ -337,6 +337,12 @@ body {
         grid-template-columns: 1fr;
     }
     .report-title {
-        font-size: 2rem;
+        font-size: 2.0rem;
+    }
+
+    .logo-container {
+        width: 60%;
+        max-width: 250px;
+        height: 80px;
     }
 }
