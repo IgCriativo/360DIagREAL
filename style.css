@@ -37,7 +37,8 @@ body {
     text-align: center;
     padding: 3rem 1rem; /* Adiciona um respiro vertical e horizontal */
     box-sizing: border-box;
-    overflow-x: hidden; /* Evita rolagem horizontal */
+    overflow-x: hidden;
+    overflow-y: hidden;/* Evita rolagem vertical */
 }
 
 /* --- TELAS E TRANSIÇÕES (READEQUADO) --- */
